@@ -3,7 +3,13 @@ import Rect from './Rect';
 import './App.css';
 
 class App extends Component {
-  data = [];
+  // data = [];
+
+  data = [
+    "This is list sample.",
+    "これはリストのサンプルです。",
+    "配列をリストに変換します。"
+  ];
 
   msgStyle = {
     fontSize: "20pt",
@@ -12,11 +18,11 @@ class App extends Component {
     padding: "5px",
   }
 
-  area = {
-    width: "500px",
-    height: "500px",
-    border: "1px solid blue"
-  }
+  // area = {
+  //   width: "500px",
+  //   height: "500px",
+  //   border: "1px solid blue"
+  // }
 
   // msgStyle1 = {
   //   fontSize: "24pt",
@@ -56,43 +62,45 @@ class App extends Component {
     //   }));
     // }, 10000)
 
-    this.doAction = this.doAction.bind(this);
+    // this.doAction = this.doAction.bind(this);
   }
 
-  // e: イベントの情報をまとめたオブジェクトが入っている
-  doAction(e) {
-    let x = e.pageX;
-    let y = e.pageY;
+  // // e: イベントの情報をまとめたオブジェクトが入っている
+  // doAction(e) {
+  //   let x = e.pageX;
+  //   let y = e.pageY;
 
-    this.data.push({x:x, y:y});
-    this.setState((state) => ({
-      list:this.data
-      // counter: state.counter + 1,
-      // msg: 'count: ' + state.counter,
-      // flag: !state.flag // flagを切り替えている
-    }));
-  }
+  //   this.data.push({x:x, y:y});
+  //   this.setState((state) => ({
+  //     list:this.data
+  //     // counter: state.counter + 1,
+  //     // msg: 'count: ' + state.counter,
+  //     // flag: !state.flag // flagを切り替えている
+  //   }));
+  // }
 
-  draw(d) {
-    let s = {
-      position: "absolute",
-      left: (d.x - 25) + "px",
-      top: (d.y - 25) + "px",
-      width: "50px",
-      height: "50px",
-      backgroundColor: "#66f3",
-    }
+  // draw(d) {
+  //   let s = {
+  //     position: "absolute",
+  //     left: (d.x - 25) + "px",
+  //     top: (d.y - 25) + "px",
+  //     width: "50px",
+  //     height: "50px",
+  //     backgroundColor: "#66f3",
+  //   }
 
-    return <div style={s}></div>
-  }
+  //   return <div style={s}></div>
+  // }
 
   render() {
     return <div>
       <h1>React</h1>
-      <h2 style={this.msgStyle}>show rect.</h2>
+      <h2 style={this.msgStyle}>show list.</h2>
+      <List title="サンプル・リスト" data={this.data} />
+      {/* <h2 style={this.msgStyle}>show rect.</h2>
       <div style={this.area} onClick={this.doAction}>
         {this.data.map((value) => this.draw(value))}
-      </div>
+      </div> */}
       {/* <Rect x="50" y="50" w="150" h="150" c="#6ff9" r="50"/>
       <Rect x="150" y="100" w="150" h="150" c="#f6f9" r="75" />
       <Rect x="100" y="150" w="150" h="150" c="#6669" r="25" /> */}
@@ -105,6 +113,55 @@ class App extends Component {
       {/* <button style={this.btnStyle} onClick={this.doAction}>click</button> */}
       {/* <p style={this.msgStyle}>{this.props.msg}</p> */}
     </div>;
+  }
+}
+
+class List extends Component {
+  number = 1;
+
+  title = {
+    fontSize: "20pt",
+    fontWeight: "bold",
+    color: "blue",
+  };
+
+  render() {
+    let data = this.props.data;
+
+    return (
+      <div>
+        <p style={this.title}>{this.props.title}</p>
+          <ul>
+            {data.map((item) =>
+              <Item number={this.number++} value={item} key={this.number} />
+            )}
+          </ul>
+      </div>
+    );
+  }
+}
+
+class Item extends Component {
+  li = {
+    listStyleType: "square",
+    fontSize: "16pt",
+    color: "#06",
+    margin: "0px",
+    padding: "0px",
+  }
+
+  num = {
+    fontWeight: "bold",
+    color: "red"
+  }
+
+  render() {
+    return (
+      <li style={this.li}>
+        <span style={this.num}>[{this.props.number}]</span>
+          {this.props.value}
+      </li>
+    );
   }
 }
 
