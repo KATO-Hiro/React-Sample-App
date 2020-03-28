@@ -19,6 +19,11 @@ class App extends Component {
     padding: "5px",
   }
 
+  inputStyle = {
+    fontSize: "12pt",
+    padding: "5px"
+  }
+
   // area = {
   //   width: "500px",
   //   height: "500px",
@@ -110,11 +115,22 @@ class App extends Component {
   render() {
     return <div>
       <h1>React</h1>
-      <Message title="Children!">
+      <h2>{this.state.message}</h2>
+      <form onSubmit={this.doSubmit}>
+        <label>
+          <span style={this.inputStyle}></span>Message:
+          <input type="text"
+            style={this.inputStyle}
+            onChange={this.doChange}
+            required pattern="[A-Za-z _,.]+" />
+        </label>
+        <input type="submit" style={this.inputStyle} value="click" />
+      </form>
+      {/* <Message title="Children!">
         これはコンポーネント内のコンテンツです。
         マルでテキストを分割し、リストにして表示します。
         改行は必要ありません。
-      </Message>
+      </Message> */}
       {/* <h2 style={this.msgStyle}>show list.</h2> */}
       {/* <List title="サンプル・リスト" data={this.data} /> */}
       {/* <h2 style={this.msgStyle}>show rect.</h2>
