@@ -16,6 +16,9 @@ class App extends Component {
   //   "配列をリストに変換します。"
   // ];
 
+  newData = {title: '新しいタイトル',
+    message: 'これは新しいメッセージです。'}
+
   input = '';
 
   msgStyle = {
@@ -126,6 +129,12 @@ class App extends Component {
   render() {
     return <div>
       <h1>Context</h1>
+      <Title />
+      <Message />
+      <SampleContext.Provider value={this.newData}>
+        <Title />
+        <Message />
+      </SampleContext.Provider>
       <Title />
       <Message />
       {/* <h1>React</h1>
