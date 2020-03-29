@@ -7,7 +7,24 @@ let data = {title: 'Title',
 
 const SampleContext = React.createContext(data);
 
+let theme = {
+  light: {
+    backgroundColor: "#eef",
+    color: "#006",
+    padding: "10px"
+  },
+  dark: {
+    backgroundColor: "#006",
+    color: "#eef",
+    padding: "10px"
+  }
+}
+
+const ThemeContext = React.createContext(theme.dark);
+
 class App extends Component {
+  static contextType = ThemeContext;
+
   // data = [];
 
   // data = [
@@ -127,8 +144,11 @@ class App extends Component {
   // }
 
   render() {
-    return <div>
-      <h1>Context</h1>
+    return <div style={this.context}>
+      <Title value="Content Page" />
+      <Message value="This is Content Sample." />
+      <Message value="※これはテーマのサンプルです。" />
+      {/* <h1>Context</h1>
       <Title />
       <Message />
       <SampleContext.Provider value={this.newData}>
@@ -136,7 +156,7 @@ class App extends Component {
         <Message />
       </SampleContext.Provider>
       <Title />
-      <Message />
+      <Message /> */}
       {/* <h1>React</h1>
       <h2>{this.state.message}</h2> */}
       {/* <form onSubmit={this.doSubmit}>
@@ -273,24 +293,26 @@ class App extends Component {
 // }
 
 class Title extends Component {
-  static contextType = SampleContext;
+  // static contextType = SampleContext;
+  static contextType = ThemeContext;
 
   render() {
     return (
       <div>
-        <h2>{this.context.title}</h2>
+        <h2 style={this.context}>{this.props.value}</h2>
       </div>
     )
   }
 }
 
 class Message extends Component {
-  static contextType = SampleContext;
+  // static contextType = SampleContext;
+  static contextType = ThemeContext;
 
   render() {
     return (
       <div>
-        <p>{this.context.message}</p>
+        <p style={this.context}>{this.props.value}</p>
       </div>
     )
   }
