@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import Rect from './Rect';
 import './App.css';
 
+let data = {title: 'Title',
+  message: 'this is samle message.'};
+
+const SampleContext = React.createContext(data);
+
 class App extends Component {
   // data = [];
 
@@ -10,6 +15,7 @@ class App extends Component {
   //   "これはリストのサンプルです。",
   //   "配列をリストに変換します。"
   // ];
+
   input = '';
 
   msgStyle = {
@@ -52,28 +58,28 @@ class App extends Component {
   //   padding: "10px"
   // }
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      message: 'type your name:'
-      // list:this.data
-      // counter: 0,
-      // msg: 'count start!',
-      // flag: true,
-    };
+  // constructor(props) {
+  //   super(props)
+  //   this.state = {
+  //     message: 'type your name:'
+  //     // list:this.data
+  //     // counter: 0,
+  //     // msg: 'count start!',
+  //     // flag: true,
+  //   };
 
-    // ステートを更新している
-    // let timer = setInterval(() => {
-    //   this.setState((state) => ({
-    //     msg: state.msg + "!"
-    //   }));
-    // }, 10000)
+  //   // ステートを更新している
+  //   // let timer = setInterval(() => {
+  //   //   this.setState((state) => ({
+  //   //     msg: state.msg + "!"
+  //   //   }));
+  //   // }, 10000)
 
-    // this.doAction = this.doAction.bind(this);
-    // this.doChange = this.doChange.bind(this);
-    // this.doSubmit = this.doSubmit.bind(this);
-    this.doCheck = this.doCheck.bind(this);
-  }
+  //   // this.doAction = this.doAction.bind(this);
+  //   // this.doChange = this.doChange.bind(this);
+  //   // this.doSubmit = this.doSubmit.bind(this);
+  //   this.doCheck = this.doCheck.bind(this);
+  // }
 
   // // e: イベントの情報をまとめたオブジェクトが入っている
   // doAction(e) {
@@ -113,14 +119,17 @@ class App extends Component {
   //   event.preventDefault();
   // }
 
-  doCheck(event) {
-    alert(event.target.value + "は長すぎます（最大10文字）。");
-  }
+  // doCheck(event) {
+  //   alert(event.target.value + "は長すぎます（最大10文字）。");
+  // }
 
   render() {
     return <div>
-      <h1>React</h1>
-      <h2>{this.state.message}</h2>
+      <h1>Context</h1>
+      <Title />
+      <Message />
+      {/* <h1>React</h1>
+      <h2>{this.state.message}</h2> */}
       {/* <form onSubmit={this.doSubmit}>
         <label>
           <span style={this.inputStyle}></span>Message:
@@ -131,7 +140,7 @@ class App extends Component {
         </label>
         <input type="submit" style={this.inputStyle} value="click" />
       </form> */}
-      <Message maxlength="10" onCheck={this.doCheck} />
+      {/* <Message maxlength="10" onCheck={this.doCheck} /> */}
       {/* <Message title="Children!">
         これはコンポーネント内のコンテンツです。
         マルでテキストを分割し、リストにして表示します。
@@ -207,50 +216,74 @@ class App extends Component {
 //   }
 // }
 
-class Message extends Component {
-  // li = {
-  //   fontSize: "16pt",
-  //   color: "#06",
-  //   margin: "0px",
-  //   padding: "0px"
-  // }
-  inputStyle = {
-    fontSize: "12pt",
-    padding: "5px"
-  }
+// class Message extends Component {
+//   // li = {
+//   //   fontSize: "16pt",
+//   //   color: "#06",
+//   //   margin: "0px",
+//   //   padding: "0px"
+//   // }
+//   inputStyle = {
+//     fontSize: "12pt",
+//     padding: "5px"
+//   }
 
-  constructor(props) {
-    super(props);
-    this.doChange = this.doChange.bind(this);
-  }
+//   constructor(props) {
+//     super(props);
+//     this.doChange = this.doChange.bind(this);
+//   }
 
-  doChange(e) {
-    if (e.target.value.length > this.props.maxlength) {
-      this.props.onCheck(e);
-      e.target.value = e.target.value.substr(0, this.props.maxlength);
-    }
-  }
+//   doChange(e) {
+//     if (e.target.value.length > this.props.maxlength) {
+//       this.props.onCheck(e);
+//       e.target.value = e.target.value.substr(0, this.props.maxlength);
+//     }
+//   }
+
+//   render() {
+//     return <input type="text" style={this.inputStyle} onChange={this.doChange} />
+//     // let content = this.props.children;
+//     // let arr = content.split('。')
+//     // let arr2 = [];
+
+//     // for (let i = 0; i < arr.length; i++) {
+//     //   if (arr[i].trim() != '') {
+//     //     arr2.push(arr[i]);
+//     //   }
+//     // }
+
+//     // let list = arr2.map((value, key) => (
+//     //   <li style={this.li} key={key}>{value}.</li>)
+//     // );
+
+//     // return <div>
+//     //   <h2>{this.props.title}</h2>
+//     //   <ol>{list}</ol>
+//     // </div>
+//   }
+// }
+
+class Title extends Component {
+  static contextType = SampleContext;
 
   render() {
-    return <input type="text" style={this.inputStyle} onChange={this.doChange} />
-    // let content = this.props.children;
-    // let arr = content.split('。')
-    // let arr2 = [];
+    return (
+      <div>
+        <h2>{this.context.title}</h2>
+      </div>
+    )
+  }
+}
 
-    // for (let i = 0; i < arr.length; i++) {
-    //   if (arr[i].trim() != '') {
-    //     arr2.push(arr[i]);
-    //   }
-    // }
+class Message extends Component {
+  static contextType = SampleContext;
 
-    // let list = arr2.map((value, key) => (
-    //   <li style={this.li} key={key}>{value}.</li>)
-    // );
-
-    // return <div>
-    //   <h2>{this.props.title}</h2>
-    //   <ol>{list}</ol>
-    // </div>
+  render() {
+    return (
+      <div>
+        <p>{this.context.message}</p>
+      </div>
+    )
   }
 }
 
